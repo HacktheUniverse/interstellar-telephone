@@ -59,9 +59,14 @@
 		
 	</div>
 	
+	<!-- shown when entering secret 2nd time -->
+	<div style="display:none" class="secondsecret">
+		<p>Same secret as before:</p><input type="text" id="secret2" ></input>
+		<button type="button" class="btn btn-lg btn-default" id="submit-secret2-btn">Submit!</button>
+	</div>
+	
 	<!-- shown when picking station -->
 	<div style="display:none" class="station">
-		<p>Same secret as before:</p><input type="text" id="secret" ></input>
 		<p>...and I am at station...</p>
 		<p>
 			<button type="button" class="btn btn-lg btn-default" id="mercury-btn"><img src="../../images/mercury-01.png" width=100 height=100 /></button>
@@ -149,9 +154,51 @@
 		
 		$("#return-btn").click(function(){
 			$(".record").hide();
-			$(".station").show();
+			$(".secondsecret").show();
 			
+			
+			userString = document.getElementById("secret2").value;
+			
+			
+		});
+		
+		$("#another-station-btn").click(function(){
+			$(".SoundClass").hide();
+			$(".station").show();
+		});
+		
+		
+		$("#hear-btn").click(function(){ 
+			$(".intro").hide();
+			$(".secondsecret").show();
+			
+			userString = document.getElementById("secret2").value;
 			//fetchWav();
+			/*
+			var messageObject = Parse.Object.extend("message");
+			var query = new Parse.Query(messageObject);
+			query.equalTo("customName", userString);
+			query.first({
+				success: function(messageObject) {
+				// The object was retrieved successfully.
+				alert("message in transit...");
+				var messageinfo = messageObject.get("wav").url();
+				
+				$("#audioId2").innerHTML += "<source src='" + messageinfo + "' />";
+			  },
+			  error: function(object, error) {
+				// The object was not retrieved successfully.
+				// error is a Parse.Error with an error code and message.
+				alert("couldn't retrieve message");
+			  }
+			});;
+			*/
+			
+		});
+		
+		$("#submit-secret2-btn").click(function(){
+		
+		//fetchWav();
 			var messageObject = Parse.Object.extend("message");
 			var query = new Parse.Query(messageObject);
 			query.equalTo("customName", userString);
@@ -170,80 +217,46 @@
 			  }
 			});;
 			
-		});
-		
-		$("#another-station-btn").click(function(){
-			$(".SoundClass").hide();
-			$(".station").show();
-		});
-		
-		
-		$("#hear-btn").click(function(){ 
-			$(".intro").hide();
+			$(".secondsecret").hide();
 			$(".station").show();
 			
-			//fetchWav();
-			
-			var messageObject = Parse.Object.extend("message");
-			var query = new Parse.Query(messageObject);
-			query.equalTo("customName", userString);
-			query.first({
-				success: function(messageObject) {
-				// The object was retrieved successfully.
-				alert("message in transit...");
-				var messageinfo = messageObject.get("wav").url();
-				
-				$("#audioId2").innerHTML += "<source src='" + messageinfo + "' />";
-			  },
-			  error: function(object, error) {
-				// The object was not retrieved successfully.
-				// error is a Parse.Error with an error code and message.
-				alert("couldn't retrieve message");
-			  }
-			});;
-			
 			
 		});
+		
+		
 		$("#mercury-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
-			countdown(0);//0.61
+			countdown(0.61);//0.61
 		});
 		$("#venus-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
-			countdown(0);//0.28
+			countdown(0.28);//0.28
 		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
-			countdown(0);//0.5
+			countdown(0.5);//0.5
 		});
 		$("#jupiter-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
 			countdown(4);
 		});
 		$("#saturn-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
 			countdown(8);
 		});
 		$("#uranus-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
 			countdown(18);
 		});
 		$("#neptune-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-			userString = document.getElementById("secret").value;
 			countdown(29);
 		});
 		
