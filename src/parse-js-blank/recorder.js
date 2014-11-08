@@ -124,7 +124,7 @@ DEALINGS IN THE SOFTWARE.
 		  messageObject = new Parse.Object("message");
 			messageObject.set("wav", file);
 			messageObject.save();
-		  //alert("file saved");
+		  alert("message heading out...");
 		  window.messageId = messageObject.id;
 		}, function(error) {
 		  // The file either could not be read, or could not be saved to Parse.
