@@ -132,9 +132,9 @@
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
-				var messageinfo = messageObject.get("wav");
+				var messageinfo = messageObject.get("wav").url();
 				
-				document.getElementById("audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
+				document.getElementById("audioId2").innerHTML += "<source src='" + messageinfo + "' />";
 			  },
 			  error: function(object, error) {
 				// The object was not retrieved successfully.
@@ -163,9 +163,9 @@
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
-				var messageinfo = messageObject.get("wav");
+				var messageinfo = messageObject.get("wav").url();
 				
-				$("#audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
+				$("#audioId2").innerHTML += "<source src='" + messageinfo + "' />";
 			  },
 			  error: function(object, error) {
 				// The object was not retrieved successfully.
