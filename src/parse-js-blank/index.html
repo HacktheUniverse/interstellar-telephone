@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
   <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+  <!-- audio js files-->
+  <script type="text/javascript" src="./recorder.js"></script>
+  <script type="text/javascript" src="./audio.js"></script>
 </head>
 
 <body>
@@ -33,7 +36,10 @@
 	</div>
 	
 	<!-- shown when recording -->
-	<div style="display:none" class="recording">
+	<div style="display:none" class="record">
+		<audio id="audioId" controls></audio>
+		<button type="button" class="btn btn-lg btn-default" id="capture-btn">Record your message!</button>
+		<button type="button" class="btn btn-lg btn-default" id="stop-btn">Stop recording</button>
 	</div>
 	
 	<!-- shown when picking station -->
@@ -51,7 +57,7 @@
 		<canvas id="canvasId" width="200" height="200">Canvas not supported - sorry, countdown timer won't work</canvas>
 
 		<div class="audio">
-			<audio id="audioId" onplaying="playing()" controls>
+			<audio id="audioId2" onplaying="playing()" controls>
 			</audio>   
 		</div>
 	</div>
@@ -60,6 +66,23 @@
   
   <!-- non-parse written js-->
   <script type="text/javascript">
+  //http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+	function hasGetUserMedia() {
+	  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	}
+
+	if (hasGetUserMedia()) {
+	  // Good to go!
+	} else {
+	  alert('getUserMedia() is not supported in your browser - can\'t record');
+	}
+	
+	
+	
+	//---------
+  
+  
 	function playing(){
 	 //stuff in here happens while the audio is playing
 	}
@@ -69,7 +92,7 @@
 		for(var i = duration; i >= 0; i = i - 1){
 			setTimeout("updateTime("+i+")", 1000 * (duration - i));
 		}
-		setTimeout(function(){ var a = document.getElementById("audioId");a.play()}, 1000 * duration);
+		setTimeout(function(){ var a = document.getElementById("audioId2");a.play()}, 1000 * duration);
 	}
 	
 	function updateTime(time){
@@ -94,11 +117,23 @@
 		
 		$("#record-btn").click(function(){
 			$(".intro").hide();
-			$(".recording").show();
+			$(".record").show();
 		});
+		
+		$("#capture-btn").click(function(){
+			toggleRecording(this);
+		});
+		
+		$("#stop-btn").click(function(){
+			toggleRecording(this);
+		});
+		
 		$("#hear-btn").click(function(){ 
 			$(".intro").hide();
-			$(".station").show()
+			$(".station").show();
+			var message = new Parse.Object("message.wav");
+			var messageinfo = message.get();
+			$("#audioId2").src = messageinfo;
 		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
@@ -136,6 +171,8 @@
 			
 		}*/
 	
+	
+   window.addEventListener('load', initAudio );
   </script>
 </body>
 
