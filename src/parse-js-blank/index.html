@@ -132,7 +132,7 @@
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
-				var messageinfo = messageObject.get("wav").get("message.wav");
+				var messageinfo = messageObject.get("wav");
 				
 				document.getElementById("audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
 			  },
@@ -163,7 +163,7 @@
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
-				var messageinfo = messageObject.get("wav").get("message.wav");
+				var messageinfo = messageObject.get("wav");
 				
 				$("#audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
 			  },
