@@ -123,6 +123,7 @@ DEALINGS IN THE SOFTWARE.
 		  // The file has been saved to Parse.
 		  messageObject = new Parse.Object("message");
 			messageObject.set("wav", file);
+			messageObject.set("customName",window.secret);
 			messageObject.save();
 		  alert("message heading out...");
 		  window.messageId = messageObject.id;

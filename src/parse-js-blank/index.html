@@ -48,6 +48,7 @@
 	
 	<!-- shown when recording -->
 	<div style="display:none" class="record">
+		<p>Secret code here:</p><input type="text" id="inputsecret" ></input>
 		<audio id="audioId" controls></audio>
 		<div id="viz">
 			<canvas id="analyser" width="200" height="100"></canvas>
@@ -60,7 +61,8 @@
 	
 	<!-- shown when picking station -->
 	<div style="display:none" class="station">
-		<p>I am at station...</p>
+		<p>Same secret as before:</p><input type="text" id="secret" ></input>
+		<p>...and I am at station...</p>
 		<p>
 			<button type="button" class="btn btn-lg btn-default" id="mercury-btn"><img src="../../images/mercury-01.png" width=100 height=100 /></button>
 			<button type="button" class="btn btn-lg btn-default" id="venus-btn"><img src="../../images/venus-01.png" width=100 height=100 /></button>
@@ -123,6 +125,8 @@
   <!-- Parse js -->
   <script type="text/javascript">
   
+ var userString;
+  
 	window.onload = function(){
 		window.onload;
 		
@@ -140,6 +144,7 @@
 		
 		$("#capture-btn").click(function(){
 			toggleRecording(this);
+			window.secret = document.getElementById("inputsecret").value;
 		});
 		
 		$("#return-btn").click(function(){
@@ -149,7 +154,8 @@
 			//fetchWav();
 			var messageObject = Parse.Object.extend("message");
 			var query = new Parse.Query(messageObject);
-			query.get(window.messageId, {
+			query.equalTo("customName", userString);
+			query.first({
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
@@ -180,7 +186,8 @@
 			
 			var messageObject = Parse.Object.extend("message");
 			var query = new Parse.Query(messageObject);
-			query.get(window.messageId, {
+			query.equalTo("customName", userString);
+			query.first({
 				success: function(messageObject) {
 				// The object was retrieved successfully.
 				alert("message in transit...");
@@ -200,36 +207,43 @@
 		$("#mercury-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(0);//0.61
 		});
 		$("#venus-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(0);//0.28
 		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(0);//0.5
 		});
 		$("#jupiter-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(4);
 		});
 		$("#saturn-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(8);
 		});
 		$("#uranus-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(18);
 		});
 		$("#neptune-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
+			userString = document.getElementById("secret").value;
 			countdown(29);
 		});
 		
