@@ -48,9 +48,7 @@
 	
 	<!-- shown when recording -->
 	<div style="display:none" class="record">
-
 		<p>Secret code here:</p><input type="text" id="inputsecret" ></input>
-
 		<audio id="audioId" controls></audio>
 		<div id="viz">
 			<canvas id="analyser" width="200" height="100"></canvas>
@@ -186,9 +184,7 @@
 				alert("message in transit...");
 				var messageinfo = messageObject.get("wav").url();
 				
-
 				$("#audioId2").innerHTML += "<source src='" + messageinfo + "' />";
-
 			  },
 			  error: function(object, error) {
 				// The object was not retrieved successfully.
@@ -196,7 +192,6 @@
 				alert("couldn't retrieve message");
 			  }
 			});;
-=======
 			*/
 			
 		});
@@ -233,18 +228,15 @@
 			$(".station").hide();
 			$(".SoundClass").show();
 			countdown(0.61);//0.61
-
 		});
 		$("#venus-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-
 			countdown(0.28);//0.28
 		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-
 			countdown(0.5);//0.5
 		});
 		$("#jupiter-btn").click(function(){
