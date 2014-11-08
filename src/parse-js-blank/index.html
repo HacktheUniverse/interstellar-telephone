@@ -156,8 +156,7 @@
 			$(".record").hide();
 			$(".secondsecret").show();
 			
-			
-			userString = document.getElementById("secret2").value;
+			//userString = document.getElementById("secret2").value;
 			
 			
 		});
@@ -197,6 +196,8 @@
 		});
 		
 		$("#submit-secret2-btn").click(function(){
+		
+		userString = document.getElementById("secret2").value;
 		
 		//fetchWav();
 			var messageObject = Parse.Object.extend("message");
