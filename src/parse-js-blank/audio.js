@@ -68,7 +68,7 @@ function toggleRecording( e ) {
 			alert("No audio source");
             return;
 			}
-		alert("recording your message!");
+		alert("Recording is about to begin!");
         e.classList.add("recording");
         audioRecorder.clear();
         audioRecorder.record();
@@ -167,7 +167,7 @@ function gotStream(stream) {
     zeroGain.connect( audioContext.destination );
     updateAnalysers();
 	
-	alert("ready to record");
+	//alert("ready to record");
 }
 
 function initAudio() {
@@ -188,7 +188,7 @@ function initAudio() {
 					"video": false,
 					"audio": true
 				}, 
-				function(stream){ alert('Almost there!'); gotStream(stream); },
+				function(stream){ gotStream(stream); },
 				function(e) {
 					alert('Error getting audio');
 					console.log(e);
