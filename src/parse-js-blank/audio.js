@@ -38,9 +38,9 @@ function saveAudio() {
 }
 
 function gotBuffers( buffers ) {
-    var canvas = document.getElementById( "wavedisplay" );
+    //var canvas = document.getElementById( "wavedisplay" );
 
-    drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
+    //drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 
     // the ONLY time gotBuffers is called is right after a new recording is completed - 
     // so here's where we should set up the download.
@@ -48,8 +48,10 @@ function gotBuffers( buffers ) {
 }
 
 function doneEncoding( blob ) {
-    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
+    var id = Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     recIndex++;
+	
+	return id; 
 }
 
 function toggleRecording( e ) {
@@ -58,11 +60,15 @@ function toggleRecording( e ) {
         // stop recording
         audioRecorder.stop();
         e.classList.remove("recording");
+		alert("recording ended");
         audioRecorder.getBuffers( gotBuffers );
     } else {
         // start recording
-        if (!audioRecorder)
+        if (!audioRecorder){
+			alert("No audio source");
             return;
+			}
+		alert("recording your message!");
         e.classList.add("recording");
         audioRecorder.clear();
         audioRecorder.record();
@@ -137,7 +143,7 @@ function toggleMono() {
 }
 
 function gotStream(stream) {
-	document.getElementById("audioId").src = stream;
+	//document.getElementById("audioId").src = stream;
 
 
     inputPoint = audioContext.createGain();
@@ -160,22 +166,32 @@ function gotStream(stream) {
     inputPoint.connect( zeroGain );
     zeroGain.connect( audioContext.destination );
     updateAnalysers();
+	
+	alert("ready to record");
 }
 
 function initAudio() {
 
+		//alert("initializing audio");
+		
         if (!navigator.getUserMedia)
             navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        if (!navigator.cancelAnimationFrame)
+       /* if (!navigator.cancelAnimationFrame)
             navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
         if (!navigator.requestAnimationFrame)
             navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
-
-    navigator.getUserMedia(
-        {
-            "audio": true
-        }, gotStream, function(e) {
-            alert('Error getting audio');
-            console.log(e);
-        });
+		*/
+		if(navigator.getUserMedia){
+			//alert("about to get user media");
+			navigator.getUserMedia(
+				{
+					"video": false,
+					"audio": true
+				}, 
+				function(stream){ alert('Almost there!'); gotStream(stream); },
+				function(e) {
+					alert('Error getting audio');
+					console.log(e);
+				});
+		} else { alert("This isn't going to work."); }
 }

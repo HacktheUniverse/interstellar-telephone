@@ -19,7 +19,7 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = 'js/recorderjs/recorderWorker.js';
+  var WORKER_PATH = './recorderWorker.js';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
@@ -113,13 +113,23 @@ DEALINGS IN THE SOFTWARE.
     //link.download = filename || 'output.wav';
 	
 	//here we upload to Parse instead
-	var file = new Parse.File("message.wav", url);
-	file.save().then(function() {
-	  // The file has been saved to Parse.
-	  alert("file saved");
-	}, function(error) {
-	  // The file either could not be read, or could not be saved to Parse.
-	});
+	var reader = new window.FileReader();
+	reader.readAsDataURL(blob); 
+	reader.onloadend = function() {
+		base64data = reader.result;  				
+		//alert(base64data);
+		var file = new Parse.File("message.wav", { base64: base64data});
+		file.save().then(function() {
+		  // The file has been saved to Parse.
+		  messageObject = new Parse.Object("message");
+			messageObject.set("wav", file);
+			messageObject.save();
+		  alert("file saved");
+		  window.messageId = messageObject.id;
+		}, function(error) {
+		  // The file either could not be read, or could not be saved to Parse.
+		});
+	};
   }
 
   window.Recorder = Recorder;

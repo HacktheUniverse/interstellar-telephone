@@ -38,8 +38,13 @@
 	<!-- shown when recording -->
 	<div style="display:none" class="record">
 		<audio id="audioId" controls></audio>
-		<button type="button" class="btn btn-lg btn-default" id="capture-btn">Record your message!</button>
-		<button type="button" class="btn btn-lg btn-default" id="stop-btn">Stop recording</button>
+		<div id="viz">
+			<canvas id="analyser" width="200" height="100"></canvas>
+			<canvas id="wavedisplay" width="200" height="100"></canvas>
+		</div>
+		<button type="button" class="btn btn-lg btn-default" id="capture-btn">Start/stop recording!</button>
+		<button type="button" class="btn btn-lg btn-default" id="return-btn">I'm done</button>
+		
 	</div>
 	
 	<!-- shown when picking station -->
@@ -60,28 +65,14 @@
 			<audio id="audioId2" onplaying="playing()" controls>
 			</audio>   
 		</div>
+		
+		<button type="button" class="btn btn-lg btn-default" id="another-station-btn">Another station</button>
 	</div>
 
   </div>
   
   <!-- non-parse written js-->
   <script type="text/javascript">
-  //http://www.html5rocks.com/en/tutorials/getusermedia/intro/
-	function hasGetUserMedia() {
-	  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-				navigator.mozGetUserMedia || navigator.msGetUserMedia);
-	}
-
-	if (hasGetUserMedia()) {
-	  // Good to go!
-	} else {
-	  alert('getUserMedia() is not supported in your browser - can\'t record');
-	}
-	
-	
-	
-	//---------
-  
   
 	function playing(){
 	 //stuff in here happens while the audio is playing
@@ -92,7 +83,7 @@
 		for(var i = duration; i >= 0; i = i - 1){
 			setTimeout("updateTime("+i+")", 1000 * (duration - i));
 		}
-		setTimeout(function(){ var a = document.getElementById("audioId2");a.play()}, 1000 * duration);
+		setTimeout(function(){ var a = document.getElementById("audioId2");a.play();}, 1000 * duration);
 	}
 	
 	function updateTime(time){
@@ -111,7 +102,13 @@
   <!-- Parse js -->
   <script type="text/javascript">
   
+	window.onload = function(){
+		window.onload;
+		
+		initAudio();
+  
 		Parse.initialize("ZL02sDEGakyzGqUMA8kYoHghsxEiiqZl6bVi7qEm", "PPDhLYI6Y5ygQF2gashX1ljqGHh9kU9AZUvyY1KW");
+		
 		
 		$(".intro").show();
 		
@@ -124,16 +121,60 @@
 			toggleRecording(this);
 		});
 		
-		$("#stop-btn").click(function(){
-			toggleRecording(this);
+		$("#return-btn").click(function(){
+			$(".record").hide();
+			$(".station").show();
+			
+			//fetchWav();
+			var messageObject = Parse.Object.extend("message");
+			var query = new Parse.Query(messageObject);
+			query.get(window.messageId, {
+				success: function(messageObject) {
+				// The object was retrieved successfully.
+				alert("message in transit...");
+				var messageinfo = messageObject.get("wav").get("message.wav");
+				
+				document.getElementById("audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
+			  },
+			  error: function(object, error) {
+				// The object was not retrieved successfully.
+				// error is a Parse.Error with an error code and message.
+				alert("couldn't retrieve message");
+			  }
+			});;
+			
 		});
+		
+		$("#another-station-btn").click(function(){
+			$(".SoundClass").hide();
+			$(".station").show();
+		});
+		
 		
 		$("#hear-btn").click(function(){ 
 			$(".intro").hide();
 			$(".station").show();
-			var message = new Parse.Object("message.wav");
-			var messageinfo = message.get();
-			$("#audioId2").src = messageinfo;
+			
+			//fetchWav();
+			
+			var messageObject = Parse.Object.extend("message");
+			var query = new Parse.Query(messageObject);
+			query.get(window.messageId, {
+				success: function(messageObject) {
+				// The object was retrieved successfully.
+				alert("message in transit...");
+				var messageinfo = messageObject.get("wav").get("message.wav");
+				
+				$("#audioId2").innerHTML += "<source src='" + messageinfo.base64 + "' />";
+			  },
+			  error: function(object, error) {
+				// The object was not retrieved successfully.
+				// error is a Parse.Error with an error code and message.
+				alert("couldn't retrieve message");
+			  }
+			});;
+			
+			
 		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
@@ -146,11 +187,31 @@
 			countdown(10);
 		});
 		
+	}
 		
 		
+		/*
+		function fetchWav(url){
+			$.ajax({
+					url:url,
+					async:false,
+					type:'POST',
+					beforeSend:function(req){
+							req.setRequestHeader('X-Parse-Application-Id',"ZL02sDEGakyzGqUMA8kYoHghsxEiiqZl6bVi7qEm");
+							req.setRequestHeader('X-Parse-REST-API-Key',"PPDhLYI6Y5ygQF2gashX1ljqGHh9kU9AZUvyY1KW");
+							req.setRequestHeader('Content-Type','audio/wav');
+						},
+					complete:function(rslt){
+							$("#audioId2").src = 'data:audio/wav;base64,'+rslt.responseText;
+						},
+					success:function(){//Success},
+					error:function(err){
+							alert('Error: '+err.responseText+'\nCode: '+err.code);
+						}
+				})
+			}
 		
-		
-		
+		*/
 		
 		/*
 		if(listening){
@@ -172,7 +233,6 @@
 		}*/
 	
 	
-   window.addEventListener('load', initAudio );
   </script>
 </body>
 
