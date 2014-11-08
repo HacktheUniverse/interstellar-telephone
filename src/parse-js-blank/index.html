@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/x-icon" href="../../images/logo-tiny.jpg">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <!-- parse -->
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
@@ -25,7 +26,7 @@
   
 	<div id="header">
 		<h1><a href="index.html">Interstellar Telephone</a></h1>
-		<img src="../../logo.png" />
+		<img src="../../images/logo-100.png" />
 	</div>
 	
 	<!-- shown when error retrieving something?-->
@@ -61,13 +62,13 @@
 	<div style="display:none" class="station">
 		<p>I am at station...</p>
 		<p>
-			<button type="button" class="btn btn-lg btn-default" id="mercury-btn">Mercury</button>
-			<button type="button" class="btn btn-lg btn-default" id="venus-btn">Venus</button>
-			<button type="button" class="btn btn-lg btn-default" id="mars-btn">Mars</button>
-			<button type="button" class="btn btn-lg btn-default" id="jupiter-btn">Jupiter</button>
-			<button type="button" class="btn btn-lg btn-default" id="saturn-btn">Saturn</button>
-			<button type="button" class="btn btn-lg btn-default" id="uranus-btn">Uranus</button>
-			<button type="button" class="btn btn-lg btn-default" id="neptune-btn">Neptune</button>
+			<button type="button" class="btn btn-lg btn-default" id="mercury-btn"><img src="../../images/mercury-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="venus-btn"><img src="../../images/venus-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="mars-btn"><img src="../../images/mars-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="jupiter-btn"><img src="../../images/jupiter-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="saturn-btn"><img src="../../images/saturn-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="uranus-btn"><img src="../../images/uranus-01.png" width=100 height=100 /></button>
+			<button type="button" class="btn btn-lg btn-default" id="neptune-btn"><img src="../../images/neptune-01.png" width=100 height=100 /></button>
 		</p>
 		
 	</div>
@@ -199,7 +200,7 @@
 		$("#mercury-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-			countdown(0.61);
+			countdown(0);//0.61
 		});
 		$("#venus-btn").click(function(){
 			$(".station").hide();
