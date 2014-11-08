@@ -61,8 +61,14 @@
 	<div style="display:none" class="station">
 		<p>I am at station...</p>
 		<p>
+			<button type="button" class="btn btn-lg btn-default" id="mercury-btn">Mercury</button>
+			<button type="button" class="btn btn-lg btn-default" id="venus-btn">Venus</button>
 			<button type="button" class="btn btn-lg btn-default" id="mars-btn">Mars</button>
 			<button type="button" class="btn btn-lg btn-default" id="jupiter-btn">Jupiter</button>
+			<button type="button" class="btn btn-lg btn-default" id="saturn-btn">Saturn</button>
+			<button type="button" class="btn btn-lg btn-default" id="uranus-btn">Uranus</button>
+			<button type="button" class="btn btn-lg btn-default" id="neptune-btn">Neptune</button>
+			<button type="button" class="btn btn-lg btn-default" id="pluto-btn">Pluto</button>
 		</p>
 		
 	</div>
@@ -191,15 +197,40 @@
 			
 			
 		});
+		$("#mercury-btn").click(function(){ 
+			$(".station").hide();
+			$(".SoundClass").show();
+			countdown(0.61);
+		});
+		$("#venus-btn").click(function(){
+			$(".station").hide();
+			$(".SoundClass").show();
+			countdown(0);//0.28
+		});
 		$("#mars-btn").click(function(){ 
 			$(".station").hide();
 			$(".SoundClass").show();
-			countdown(3);
+			countdown(0);//0.5
 		});
 		$("#jupiter-btn").click(function(){
 			$(".station").hide();
 			$(".SoundClass").show();
-			countdown(10);
+			countdown(4);
+		});
+		$("#saturn-btn").click(function(){ 
+			$(".station").hide();
+			$(".SoundClass").show();
+			countdown(8);
+		});
+		$("#uranus-btn").click(function(){
+			$(".station").hide();
+			$(".SoundClass").show();
+			countdown(18);
+		});
+		$("#neptune-btn").click(function(){
+			$(".station").hide();
+			$(".SoundClass").show();
+			countdown(29);
 		});
 		
 	}
