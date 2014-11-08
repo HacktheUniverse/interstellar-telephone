@@ -66,11 +66,10 @@
 	
 	function countdown(duration){
 		var left = duration;
-		while(left > 0){
-			setTimeout(updateTime(left), 1000 * (left));
-			left = left - 1;
+		for(var i = duration; i >= 0; i = i - 1){
+			setTimeout("updateTime("+i+")", 1000 * (duration - i));
 		}
-		setTimeout($("#audioId").play(), 1000 * duration);
+		setTimeout(function(){ var a = document.getElementById("audioId");a.play()}, 1000 * duration);
 	}
 	
 	function updateTime(time){
@@ -81,7 +80,7 @@
 		ctx.fillRect(0,0,200, 200);
 		ctx.fillStyle = "#000000";
 		ctx.font="150px Georgia";
-		ctx.fillText( time, 10, 170, 200);
+		ctx.fillText(time, 10, 170, 200);
 	}
 
   </script>
