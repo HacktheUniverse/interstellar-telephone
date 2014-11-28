@@ -7,3 +7,5 @@ http://tinyurl.com/hacktheU
 http://tinyurl.com/transmitCall
 
 https://dl.dropboxusercontent.com/u/1042084/Hack%20the%20Universe-Interstellar%20Telephone-GOOD%20VERSION%20%281%29.pdf
+
+Demo from Hack the Universe presentations: http://youtu.be/4CndEx8bIuQ
